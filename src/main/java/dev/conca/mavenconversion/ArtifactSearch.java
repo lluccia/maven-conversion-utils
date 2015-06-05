@@ -12,6 +12,7 @@ import dev.conca.mavenconversion.model.Doc;
 
 /**
  * Searches for Maven artifacts in central repository
+ * 
  * @author Leandro Conca
  *
  */
@@ -23,25 +24,17 @@ public class ArtifactSearch {
 
 	public ArtifactSearch() {
 		restTemplate = new RestTemplate();
-		
+
 		List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 		messageConverters.add(new MappingJackson2HttpMessageConverter());
 
-		restTemplate.setMessageConverters(messageConverters); 
+		restTemplate.setMessageConverters(messageConverters);
 	}
 
-	public ArtifactSearchResult findArtifactBySHA1(String sha1sum) {
-		ArtifactSearchResult searchresult = restTemplate.getForObject(searchBySha1UrlTemplate, ArtifactSearchResult.class, sha1sum);
-		return searchresult;
+	public List<Doc> findArtifactsBySHA1(String sha1sum) {
+		ArtifactSearchResult searchresult = restTemplate.getForObject(
+				searchBySha1UrlTemplate, ArtifactSearchResult.class, sha1sum);
+		return searchresult.getResponse().getDocs();
 	}
-	
-	public static void main(String[] args) {
-		ArtifactSearch artifactSearch = new ArtifactSearch();
-		ArtifactSearchResult searchResult = artifactSearch.findArtifactBySHA1("162c371a2ab148d1734acf27abf31b5255b332b8");
-		
-		
-		for (Doc doc : searchResult.getResponse().getDocs()) {
-			System.out.println(doc.getMavenSnippet());
-		}
-	}
+
 }
