@@ -1,7 +1,9 @@
-package dev.conca.mavenconversion.model;
+package dev.conca.mavenconversion.mavencentral;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import dev.conca.mavenconversion.model.Artifact;
 
 public class ArtifactSearchResult {
 
@@ -11,7 +13,7 @@ public class ArtifactSearchResult {
 	public class Response {
 		Integer numFound;
 		Integer start;
-		List<Doc> docs;
+		List<Artifact> docs;
 		
 		public Integer getNumFound() {
 			return numFound;
@@ -25,10 +27,10 @@ public class ArtifactSearchResult {
 		public void setStart(Integer start) {
 			this.start = start;
 		}
-		public List<Doc> getDocs() {
+		public List<Artifact> getDocs() {
 			return docs;
 		}
-		public void setDocs(List<Doc> docs) {
+		public void setDocs(List<Artifact> docs) {
 			this.docs = docs;
 		}
 	}

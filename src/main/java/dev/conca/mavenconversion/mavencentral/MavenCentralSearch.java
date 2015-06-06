@@ -1,4 +1,4 @@
-package dev.conca.mavenconversion;
+package dev.conca.mavenconversion.mavencentral;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import dev.conca.mavenconversion.model.ArtifactSearchResult;
-import dev.conca.mavenconversion.model.Doc;
+import dev.conca.mavenconversion.model.Artifact;
 
 /**
  * Searches for Maven artifacts in central repository
@@ -16,13 +15,13 @@ import dev.conca.mavenconversion.model.Doc;
  * @author Leandro Conca
  *
  */
-public class ArtifactSearch {
+public class MavenCentralSearch {
 
 	private RestTemplate restTemplate;
 
 	private final String searchBySha1UrlTemplate = "https://search.maven.org/solrsearch/select?q=1:\"{sha1sum}\"&rows=20&wt=json";
 
-	public ArtifactSearch() {
+	public MavenCentralSearch() {
 		restTemplate = new RestTemplate();
 
 		List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
@@ -31,7 +30,7 @@ public class ArtifactSearch {
 		restTemplate.setMessageConverters(messageConverters);
 	}
 
-	public List<Doc> findArtifactsBySHA1(String sha1sum) {
+	public List<Artifact> findArtifactsBySHA1(String sha1sum) {
 		ArtifactSearchResult searchresult = restTemplate.getForObject(
 				searchBySha1UrlTemplate, ArtifactSearchResult.class, sha1sum);
 		return searchresult.getResponse().getDocs();

@@ -36,6 +36,7 @@ public class Checksum {
 			
 			fis.close();
 		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 		}
 
 		return sb.toString();
