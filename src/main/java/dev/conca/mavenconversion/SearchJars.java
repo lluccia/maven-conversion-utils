@@ -1,5 +1,6 @@
 package dev.conca.mavenconversion;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 
@@ -24,10 +26,12 @@ public class SearchJars {
 
 	private static MavenCentralSearch mavenCentralSearch = new MavenCentralSearch();
 
+	private static File outputFile = new File("output.txt");
+	
 	public static void main(String[] args) throws IOException {
 		System.out.println("looking for jar files...");
-		findJarFiles("/git/AGI");
-
+		findJarFiles(args[0]);
+		System.out.println("Found " + jarFiles.size() + " files...");
 		System.out.println("calculating checksums...");
 		calculateChecksums();
 
@@ -62,21 +66,34 @@ public class SearchJars {
 		}
 	}
 
-	private static void printResults() {
+	private static void printResults() throws IOException {
 		for (Entry<Path, List<Artifact>> entry : mavenArtifacts.entrySet()) {
 			Path filePath = entry.getKey();
 			List<Artifact> docs = entry.getValue();
 
+			String header = "FILE_PATH" + "\t"
+					+ "CHECKSUM" + "\t"
+					+ "MAVEN_ID" + "\t"
+					+ "MAVEN_SNIPPET" + "\t"
+					+ "TIMESTAMP" + "\t"
+					+ "CLASSIFIERS";
+			FileUtils.write(outputFile, header + "\n");
+			
 			if (docs.size() == 0) {
-				System.out.println(filePath + "\tNo artifacts found");
+				String artifactDetails = filePath + "\tNo artifacts found";
+				System.out.println(artifactDetails);
+				FileUtils.write(outputFile, artifactDetails, true);
 			} else {
 				for (Artifact doc : docs) {
-					System.out.println(filePath + "\t"
-							+ fileChecksums.get(filePath)
+					String artifactDetails = filePath + "\t"
+							+ fileChecksums.get(filePath) + "\t"
 							+ doc.getId() + "\t"
 							+ doc.getMavenSnippet() + "\t"
-							+ new DateTime(doc.getTimestamp()).toString()
-							+ "\t" + StringUtils.join(doc.getEc()));
+							+ new DateTime(doc.getTimestamp()).toString() + "\t"
+							+ StringUtils.join(doc.getEc(), ",");
+					
+					System.out.println(artifactDetails);
+					FileUtils.write(outputFile, artifactDetails + "\n", true);
 				}
 			}
 		}

@@ -20,6 +20,24 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.10</version>
+				<configuration>
+					<repositoryLayout>flat</repositoryLayout>
+					<binFileExtensions>
+						<unix>.sh</unix>
+					</binFileExtensions>
+					<programs>
+						<program>
+							<mainClass>dev.conca.mavenconversion.SearchJars</mainClass>
+							<id>searchJars</id>
+						</program>
+					</programs>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
@@ -44,7 +62,11 @@
 			<artifactId>joda-time</artifactId>
 			<version>2.8</version>
 		</dependency>
-
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
