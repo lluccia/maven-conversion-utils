@@ -67,22 +67,25 @@ public class SearchJars {
 	}
 
 	private static void printResults() throws IOException {
+		String header = "FILE_PATH" + "\t"
+				+ "CHECKSUM" + "\t"
+				+ "MAVEN_ID" + "\t"
+				+ "MAVEN_SNIPPET" + "\t"
+				+ "TIMESTAMP" + "\t"
+				+ "CLASSIFIERS";
+		
+		FileUtils.write(outputFile, header + "\n");
+		
 		for (Entry<Path, List<Artifact>> entry : mavenArtifacts.entrySet()) {
 			Path filePath = entry.getKey();
 			List<Artifact> docs = entry.getValue();
 
-			String header = "FILE_PATH" + "\t"
-					+ "CHECKSUM" + "\t"
-					+ "MAVEN_ID" + "\t"
-					+ "MAVEN_SNIPPET" + "\t"
-					+ "TIMESTAMP" + "\t"
-					+ "CLASSIFIERS";
-			FileUtils.write(outputFile, header + "\n");
-			
 			if (docs.size() == 0) {
-				String artifactDetails = filePath + "\tNo artifacts found";
+				String artifactDetails = filePath + "\t"
+						+ fileChecksums.get(filePath) + "\t"
+						+ "No artifacts found";
 				System.out.println(artifactDetails);
-				FileUtils.write(outputFile, artifactDetails, true);
+				FileUtils.write(outputFile, artifactDetails + "\n", true);
 			} else {
 				for (Artifact doc : docs) {
 					String artifactDetails = filePath + "\t"

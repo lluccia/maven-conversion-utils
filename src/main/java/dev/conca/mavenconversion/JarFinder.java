@@ -21,6 +21,7 @@ public class JarFinder extends SimpleFileVisitor<Path> {
 		if (fileName != null
 				&& fileName.toString().toLowerCase().endsWith(".jar")) {
 			jarPaths.add(file);
+			System.out.println("Found: " + file.toString());
 		}
 	}
 
