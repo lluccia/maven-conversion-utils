@@ -95,9 +95,10 @@ public class Artifact {
 	}
 
 	public String getMavenSnippet() {
-		return "<dependency><groupId>" + 
-				groupId + "</groupId><artifactId>" +
-				artifactId + "</artifactId><version>" +
-				version + "</version></dependency>";
+		return 	"<dependency>" +
+					"<groupId>" + groupId + "</groupId>" +
+					"<artifactId>" + artifactId + "</artifactId>" +
+					"<version>" + version + "</version>" +
+				"</dependency>";
 	}
 }

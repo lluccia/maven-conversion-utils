@@ -19,7 +19,7 @@ public class MavenCentralSearch {
 
 	private RestTemplate restTemplate;
 
-	private final String searchBySha1UrlTemplate = "https://search.maven.org/solrsearch/select?q=1:\"{sha1sum}\"&rows=20&wt=json";
+	private static final String SHA1_SEARCH_URL_TEMPLATE = "https://search.maven.org/solrsearch/select?q=1:\"{sha1sum}\"&rows=20&wt=json";
 
 	public MavenCentralSearch() {
 		restTemplate = new RestTemplate();
@@ -32,7 +32,7 @@ public class MavenCentralSearch {
 
 	public List<Artifact> findArtifactsBySHA1(String sha1sum) {
 		ArtifactSearchResult searchresult = restTemplate.getForObject(
-				searchBySha1UrlTemplate, ArtifactSearchResult.class, sha1sum);
+				SHA1_SEARCH_URL_TEMPLATE, ArtifactSearchResult.class, sha1sum);
 		return searchresult.getResponse().getDocs();
 	}
 
