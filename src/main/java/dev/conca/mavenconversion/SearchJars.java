@@ -29,15 +29,18 @@ public class SearchJars {
 	private static File outputFile = new File("output.txt");
 	
 	public static void main(String[] args) throws IOException {
+	    
 		System.out.println("looking for jar files...");
 		findJarFiles(args[0]);
 		System.out.println("Found " + jarFiles.size() + " files...");
+		
 		System.out.println("calculating checksums...");
 		calculateChecksums();
 
 		System.out.println("searching maven central...");
 		searchMavenCentral();
 
+		System.out.println("creating report...");
 		printResults();
 
 	}
@@ -71,6 +74,7 @@ public class SearchJars {
 				+ "CHECKSUM" + "\t"
 				+ "MAVEN_ID" + "\t"
 				+ "MAVEN_SNIPPET" + "\t"
+				+ "GRADLE_SNIPPET" + "\t"
 				+ "TIMESTAMP" + "\t"
 				+ "CLASSIFIERS";
 		
@@ -92,8 +96,9 @@ public class SearchJars {
 							+ fileChecksums.get(filePath) + "\t"
 							+ doc.getId() + "\t"
 							+ doc.getMavenSnippet() + "\t"
+							+ doc.getGradleSnippet() + "\t"
 							+ new DateTime(doc.getTimestamp()).toString() + "\t"
-							+ StringUtils.join(doc.getEc(), ",");
+							+ "[" + StringUtils.join(doc.getClassifiers(), ", ") + "]";
 					
 					System.out.println(artifactDetails);
 					FileUtils.write(outputFile, artifactDetails + "\n", true);

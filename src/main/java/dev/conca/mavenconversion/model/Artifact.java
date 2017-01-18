@@ -26,7 +26,7 @@ public class Artifact {
 	private List<String> tags;
 
 	@JsonProperty("ec")
-	private List<String> ec;
+	private List<String> classifiers;
 
 	public String getId() {
 		return id;
@@ -44,8 +44,6 @@ public class Artifact {
 		this.groupId = groupId;
 	}
 
-	
-	
 	public String getArtifactId() {
 		return artifactId;
 	}
@@ -86,12 +84,12 @@ public class Artifact {
 		this.tags = tags;
 	}
 
-	public List<String> getEc() {
-		return ec;
+	public List<String> getClassifiers() {
+		return classifiers;
 	}
 
-	public void setEc(List<String> ec) {
-		this.ec = ec;
+	public void setClassifiers(List<String> classifiers) {
+		this.classifiers = classifiers;
 	}
 
 	public String getMavenSnippet() {
@@ -101,4 +99,8 @@ public class Artifact {
 					"<version>" + version + "</version>" +
 				"</dependency>";
 	}
+
+    public String getGradleSnippet() {
+        return "compile '" + groupId + ":" + artifactId + ":" + version + "'";
+    }
 }

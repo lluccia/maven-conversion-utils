@@ -21,5 +21,6 @@ The output is written to a text file (output.txt), tab separated, in the current
 | CHECKSUM | SHA1 file checsum |
 | MAVEN_ID | Maven artifact identifier in format `<groupId>:<artifactId>:<version>` |
 | MAVEN_SNIPPET | code snippet for pom.xml |
+| GRADLE_SNIPPET | code snipped for gradle builds |
 | TIMESTAMP | artifact timestamp |
 | CLASSIFIERS | available classifiers for artifact (sources, javadoc...) |
