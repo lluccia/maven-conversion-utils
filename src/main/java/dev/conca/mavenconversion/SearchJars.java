@@ -1,7 +1,9 @@
 package dev.conca.mavenconversion;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -54,7 +56,8 @@ public class SearchJars {
 
 	private static void calculateChecksums() throws IOException {
 		for (Path path : jarFiles) {
-			fileChecksums.put(path, Checksum.calculateSHA1Sum(path.toFile()));
+		    InputStream is = new FileInputStream(path.toFile());
+			fileChecksums.put(path, Checksum.calculateSHA1Sum(is));
 		}
 	}
 

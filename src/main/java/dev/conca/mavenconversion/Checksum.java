@@ -1,27 +1,25 @@
 package dev.conca.mavenconversion;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Checksum {
 	
-	public static String calculateSHA1Sum(File file) throws IOException {
+	public static String calculateSHA1Sum(InputStream inputStream) throws IOException {
 
 		MessageDigest md;
-		StringBuffer sb = new StringBuffer("");
+		StringBuilder sb = new StringBuilder("");
 
 		try {
 			md = MessageDigest.getInstance("SHA1");
 
-			FileInputStream fis = new FileInputStream(file);
 			byte[] dataBytes = new byte[1024];
 
 			int nread = 0;
 
-			while ((nread = fis.read(dataBytes)) != -1) {
+			while ((nread = inputStream.read(dataBytes)) != -1) {
 				md.update(dataBytes, 0, nread);
 			}
 			;
@@ -34,7 +32,7 @@ public class Checksum {
 
 			}
 			
-			fis.close();
+			inputStream.close();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
