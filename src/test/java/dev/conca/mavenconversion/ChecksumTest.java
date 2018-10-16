@@ -14,6 +14,6 @@ public class ChecksumTest {
 	    
 		String sha1sum = Checksum.calculateSHA1Sum(inputStream);
 		
-		Assert.assertEquals("bd935fb8f3819d68c62b8f35d2e5e5d9b571e0ab", sha1sum);
+		Assert.assertEquals("45fce86e4350c472b8e87eb0f3773328b374cbdc", sha1sum);
 	}
 }
