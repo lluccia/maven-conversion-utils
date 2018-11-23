@@ -1,7 +1,7 @@
 Utility project to help converting legacy projects to Maven.
 
 # Build
-`mvn clean package appassembler:assemble`
+`./mvnw clean package appassembler:assemble`
 
 The executable scripts (sh and bat) will be created at `target/appassembler/bin`
 
