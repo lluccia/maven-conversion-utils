@@ -1,7 +1,6 @@
 package dev.conca.mavenconversion.model;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -15,7 +14,9 @@ public class ArtifactTest {
         a.setArtifactId("poi-ooxml-schemas");
         a.setVersion("3.9");
         
-        assertThat(a.getMavenSnippet(), is("<dependency><groupId>org.apache.poi</groupId><artifactId>poi-ooxml-schemas</artifactId><version>3.9</version></dependency>"));
+        assertEquals(
+            "<dependency><groupId>org.apache.poi</groupId><artifactId>poi-ooxml-schemas</artifactId><version>3.9</version></dependency>",
+            a.getMavenSnippet());
     }
     
     @Test
@@ -26,7 +27,8 @@ public class ArtifactTest {
         a.setArtifactId("poi-ooxml-schemas");
         a.setVersion("3.9");
         
-        assertThat(a.getGradleSnippet(), is("compile 'org.apache.poi:poi-ooxml-schemas:3.9'"));
+        assertEquals("compile 'org.apache.poi:poi-ooxml-schemas:3.9'",
+            a.getGradleSnippet());
     }
 
 }

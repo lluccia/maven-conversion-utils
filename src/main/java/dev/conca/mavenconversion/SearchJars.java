@@ -1,6 +1,5 @@
 package dev.conca.mavenconversion;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 
@@ -28,21 +26,20 @@ public class SearchJars {
 
 	private static MavenCentralSearch mavenCentralSearch = new MavenCentralSearch();
 
-	private static File outputFile = new File("output.txt");
 	
 	public static void main(String[] args) throws IOException {
 	    
-		System.out.println("looking for jar files...");
+		System.err.println("looking for jar files...");
 		findJarFiles(args[0]);
-		System.out.println("Found " + jarFiles.size() + " files...");
+		System.err.println("Found " + jarFiles.size() + " files...");
 		
-		System.out.println("calculating checksums...");
+		System.err.println("calculating checksums...");
 		calculateChecksums();
 
-		System.out.println("searching maven central...");
+		System.err.println("searching maven central...");
 		searchMavenCentral();
 
-		System.out.println("creating report...");
+		System.err.println("creating report...");
 		printResults();
 
 	}
@@ -81,18 +78,17 @@ public class SearchJars {
 				+ "TIMESTAMP" + "\t"
 				+ "CLASSIFIERS";
 		
-		FileUtils.write(outputFile, header + "\n");
+				System.out.println(header);
 		
 		for (Entry<Path, List<Artifact>> entry : mavenArtifacts.entrySet()) {
 			Path filePath = entry.getKey();
 			List<Artifact> docs = entry.getValue();
 
-			if (docs.size() == 0) {
+			if (docs.isEmpty()) {
 				String artifactDetails = filePath + "\t"
 						+ fileChecksums.get(filePath) + "\t"
 						+ "No artifacts found";
 				System.out.println(artifactDetails);
-				FileUtils.write(outputFile, artifactDetails + "\n", true);
 			} else {
 				for (Artifact doc : docs) {
 					String artifactDetails = filePath + "\t"
@@ -104,7 +100,6 @@ public class SearchJars {
 							+ "[" + StringUtils.join(doc.getClassifiers(), ", ") + "]";
 					
 					System.out.println(artifactDetails);
-					FileUtils.write(outputFile, artifactDetails + "\n", true);
 				}
 			}
 		}

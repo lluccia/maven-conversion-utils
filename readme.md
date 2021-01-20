@@ -1,7 +1,9 @@
 Utility project to help converting legacy projects to Maven.
 
 # Build
-`./mvnw clean package appassembler:assemble`
+```sh
+./mvnw clean package
+```
 
 The executable scripts (sh and bat) will be created at `target/appassembler/bin`
 
@@ -13,7 +15,11 @@ This script will find jar files found on the directory passed as argument and su
 
 usage: `./searchJars.sh <directory>` or `searchJars.bat <directory>`
 
-The output is written to a text file (output.txt), tab separated, in the current directory.
+The output is written to console, tab separated, it can be redirected to a file if desired.
+e.g.:
+```sh
+./searchJars.sh /project_dir/libs > output.tsv
+```
 
 | Column | Description |
 | --- | --- |
