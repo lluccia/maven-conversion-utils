@@ -1,7 +1,8 @@
-package dev.conca.mavenconversion.model;
+package dev.conca.mavenconversion;
 
 import static org.junit.Assert.assertEquals;
 
+import dev.conca.mavenconversion.Artifact;
 import org.junit.Test;
 
 public class ArtifactTest {

@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class ChecksumTest {
-
 	@Test
 	public void testCalculateSHA1Sum() throws IOException {
 		InputStream inputStream = ChecksumTest.class.getClassLoader().getResourceAsStream("checksum-test.txt");

@@ -1,32 +1,21 @@
-package dev.conca.mavenconversion.model;
+package dev.conca.mavenconversion;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Artifact {
 
 	private String id;
 
-	@JsonProperty("g")
 	private String groupId;
 
-	@JsonProperty("a")
 	private String artifactId;
 
-	@JsonProperty("v")
 	private String version;
 
-	@JsonProperty("p")
-	private String packaging;
+	private Long timestamp;
 
-	private Date timestamp;
-
-	private List<String> tags;
-
-	@JsonProperty("ec")
-	private List<String> classifiers;
+	private List<String> classifiers = new ArrayList<>();
 
 	public String getId() {
 		return id;
@@ -60,28 +49,12 @@ public class Artifact {
 		this.version = version;
 	}
 
-	public String getPackaging() {
-		return packaging;
-	}
-
-	public void setPackaging(String packaging) {
-		this.packaging = packaging;
-	}
-
-	public Date getTimestamp() {
+	public Long getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(Date timestamp) {
+	public void setTimestamp(Long timestamp) {
 		this.timestamp = timestamp;
-	}
-
-	public List<String> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<String> tags) {
-		this.tags = tags;
 	}
 
 	public List<String> getClassifiers() {

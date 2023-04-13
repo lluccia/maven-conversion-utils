@@ -12,6 +12,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Search for jar files recursively in a given folder
+ */
 public class JarFinder extends SimpleFileVisitor<Path> {
 
 	private List<Path> jarPaths = new ArrayList<>();
